@@ -1,18 +1,19 @@
 package app.ecommerce.ecommercecore.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 @Embeddable
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "order")
 public class OrderProductPK implements Serializable {
+    private static final long serialVersionUID = 476151177562655457L;
 
-    @JsonBackReference
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
@@ -25,12 +26,12 @@ public class OrderProductPK implements Serializable {
         return order;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
     }
 
     public void setProduct(Product product) {
@@ -38,14 +39,51 @@ public class OrderProductPK implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OrderProductPK that)) return false;
-        return getOrder().equals(that.getOrder()) && getProduct().equals(that.getProduct());
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+
+        result = prime * result + ((order.getId() == null)
+                ? 0
+                : order
+                .getId()
+                .hashCode());
+        result = prime * result + ((product.getId() == null)
+                ? 0
+                : product
+                .getId()
+                .hashCode());
+
+        return result;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(getOrder(), getProduct());
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        OrderProductPK other = (OrderProductPK) obj;
+        if (order == null) {
+            if (other.order != null) {
+                return false;
+            }
+        } else if (!order.equals(other.order)) {
+            return false;
+        }
+
+        if (product == null) {
+            if (other.product != null) {
+                return false;
+            }
+        } else if (!product.equals(other.product)) {
+            return false;
+        }
+        return true;
     }
 }

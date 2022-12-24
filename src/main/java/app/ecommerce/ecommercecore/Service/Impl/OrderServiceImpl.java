@@ -1,8 +1,10 @@
 package app.ecommerce.ecommercecore.Service.Impl;
 
 import app.ecommerce.ecommercecore.Entity.Order;
+import app.ecommerce.ecommercecore.Repository.OrderRepository;
 import app.ecommerce.ecommercecore.Service.OrderService;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -11,7 +13,12 @@ import java.time.LocalDate;
 @Transactional
 public class OrderServiceImpl implements OrderService {
 
-    // orderRepository constructor injection
+    private OrderRepository orderRepository;
+
+    @Autowired
+    public OrderServiceImpl(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @Override
     public Iterable<Order> getAllOrders() {
@@ -21,6 +28,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order create(Order order) {
         order.setDateCreated(LocalDate.now());
+
         return this.orderRepository.save(order);
     }
 

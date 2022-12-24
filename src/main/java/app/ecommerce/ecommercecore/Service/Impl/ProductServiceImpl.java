@@ -1,15 +1,23 @@
 package app.ecommerce.ecommercecore.Service.Impl;
 
 import app.ecommerce.ecommercecore.Entity.Product;
+import app.ecommerce.ecommercecore.Exception.ResourceNotFoundException;
+import app.ecommerce.ecommercecore.Repository.ProductRepository;
 import app.ecommerce.ecommercecore.Service.ProductService;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
-    // productRepository constructor injection
+    private ProductRepository productRepository;
+
+    @Autowired
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @Override
     public Iterable<Product> getAllProducts() {

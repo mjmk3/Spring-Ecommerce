@@ -6,8 +6,6 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
 
-import java.util.Objects;
-
 @Entity
 public class OrderProduct {
 
@@ -18,7 +16,9 @@ public class OrderProduct {
     @Column(nullable = false)
     private Integer quantity;
 
-    // default constructor
+    public OrderProduct() {
+        super();
+    }
 
     public OrderProduct(Order order, Product product, Integer quantity) {
         pk = new OrderProductPK();
@@ -37,15 +37,51 @@ public class OrderProduct {
         return getProduct().getPrice() * getQuantity();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OrderProduct that)) return false;
-        return pk.equals(that.pk) && quantity.equals(that.quantity);
+    public OrderProductPK getPk() {
+        return pk;
+    }
+
+    public void setPk(OrderProductPK pk) {
+        this.pk = pk;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pk, quantity);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((pk == null) ? 0 : pk.hashCode());
+
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        OrderProduct other = (OrderProduct) obj;
+        if (pk == null) {
+            if (other.pk != null) {
+                return false;
+            }
+        } else if (!pk.equals(other.pk)) {
+            return false;
+        }
+
+        return true;
     }
 }

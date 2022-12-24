@@ -2,6 +2,10 @@ package app.ecommerce.ecommercecore.Controller;
 
 import app.ecommerce.ecommercecore.DTO.OrderProductDto;
 import app.ecommerce.ecommercecore.Entity.Order;
+import app.ecommerce.ecommercecore.Entity.OrderProduct;
+import app.ecommerce.ecommercecore.Entity.OrderStatus;
+import app.ecommerce.ecommercecore.Exception.ResourceNotFoundException;
+import app.ecommerce.ecommercecore.Service.OrderProductService;
 import app.ecommerce.ecommercecore.Service.OrderService;
 import app.ecommerce.ecommercecore.Service.ProductService;
 import jakarta.validation.constraints.NotNull;
@@ -9,10 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -81,11 +89,9 @@ public class OrderController {
     public static class OrderForm {
 
         private List<OrderProductDto> productOrders;
-
         public List<OrderProductDto> getProductOrders() {
             return productOrders;
         }
-
         public void setProductOrders(List<OrderProductDto> productOrders) {
             this.productOrders = productOrders;
         }
