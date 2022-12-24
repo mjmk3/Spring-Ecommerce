@@ -11,9 +11,9 @@ import {Subscription} from "rxjs/internal/Subscription";
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy {
   orderFinished: boolean;
-  orders: ProductOrders;
+  orders: ProductOrders | undefined;
   total: number;
-  sub: Subscription;
+  sub: Subscription | undefined;
 
   @Output() onOrderFinished: EventEmitter<boolean>;
 
@@ -32,6 +32,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   private calculateTotal(products: ProductOrder[]): number {
     let sum = 0;
     products.forEach(value => {
+      // @ts-ignore
       sum += (value.product.price * value.quantity);
     });
     return sum;
@@ -61,6 +62,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       if (productOrder) {
         // @ts-ignore
         this.orders.productOrders.push(new ProductOrder(
+          // @ts-ignore
           productOrder.product, productOrder.quantity));
       }
       this.ecommerceService.ProductOrders = this.orders;
