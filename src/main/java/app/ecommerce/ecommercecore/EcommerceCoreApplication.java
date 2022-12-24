@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class EcommerceCoreApplication {
+public class ECommerceCoreApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EcommerceCoreApplication.class, args);
+        SpringApplication.run(ECommerceCoreApplication.class, args);
     }
 
     @Bean
