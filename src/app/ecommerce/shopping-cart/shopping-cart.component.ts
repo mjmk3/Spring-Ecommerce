@@ -11,9 +11,9 @@ import {Subscription} from "rxjs/internal/Subscription";
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy {
   orderFinished: boolean;
-  orders: ProductOrders | undefined;
+  orders: ProductOrders;
   total: number;
-  sub: Subscription | undefined;
+  sub: Subscription;
 
   @Output() onOrderFinished: EventEmitter<boolean>;
 

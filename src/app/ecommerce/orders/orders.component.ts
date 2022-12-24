@@ -10,9 +10,9 @@ import {EcommerceService} from "../services/EcommerceService";
 })
 export class OrdersComponent implements OnInit {
   orders: ProductOrders;
-  total: number | undefined;
-  paid: boolean | undefined;
-  sub: Subscription | undefined;
+  total: number;
+  paid: boolean;
+  sub: Subscription;
 
   constructor(private ecommerceService: EcommerceService) {
     this.orders = this.ecommerceService.ProductOrders;

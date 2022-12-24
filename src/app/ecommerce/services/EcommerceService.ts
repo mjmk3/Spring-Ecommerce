@@ -9,7 +9,7 @@ export class EcommerceService {
   private productsUrl = "/api/products";
   private ordersUrl = "/api/orders";
 
-  private productOrder: ProductOrder | undefined;
+  private productOrder: ProductOrder;
   private orders: ProductOrders = new ProductOrders();
 
   private productOrderSubject = new Subject();
@@ -44,13 +44,13 @@ export class EcommerceService {
     return this.productOrder;
   }
 
-  set ProductOrders(value: ProductOrders | undefined) {
+  set ProductOrders(value: ProductOrders) {
     this.orders = value;
     // @ts-ignore
     this.ordersSubject.next();
   }
 
-  get ProductOrders(): ProductOrders | undefined {
+  get ProductOrders(): ProductOrders {
     return this.orders;
   }
 

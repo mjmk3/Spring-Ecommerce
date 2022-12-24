@@ -13,13 +13,13 @@ export class EcommerceComponent implements OnInit {
   orderFinished = false;
 
   @ViewChild('productsC')
-  productsC: ProductsComponent | undefined;
+  productsC: ProductsComponent;
 
   @ViewChild('shoppingCartC')
-  shoppingCartC: ShoppingCartComponent | undefined;
+  shoppingCartC: ShoppingCartComponent;
 
   @ViewChild('ordersC')
-  ordersC: OrdersComponent | undefined;
+  ordersC: OrdersComponent;
 
   constructor() {
   }
